@@ -1,39 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const DataFetchingComponent = () => {
-  const [data, setData] = useState(null); // Состояние для данных
-  const [loading, setLoading] = useState(true); // Состояние загрузки
-  const [error, setError] = useState(null); // Состояние ошибок
+const App = () => {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Функция для получения данных
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8080'); // Замените URL на ваш бэкенд
+        const response = await fetch('http://127.0.0.1:8000/');
         if (!response.ok) {
-          throw new Error(`Ошибка: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setData(result); // Сохранение данных в состояние
+        setData(result);
       } catch (err) {
-        setError(err.message); // Сохранение ошибки в состояние
-      } finally {
-        setLoading(false); // Окончание загрузки
+        setError(err.message);
       }
     };
 
     fetchData();
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз при монтировании
+  }, []);
 
-  if (loading) return <p>Загрузка...</p>;
   if (error) return <p>Ошибка: {error}</p>;
+  if (!data) return <p>Загрузка...</p>;
 
   return (
     <div>
-      <h1>Данные с бэкенда:</h1>
+      <h1>Ответ сервера:</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
 
-export default DataFetchingComponent;
+export default App;
