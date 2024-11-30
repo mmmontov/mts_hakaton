@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.search.router import router as router_search
+
 app = FastAPI()
 
-@app.get('/')
-async def test_route():
-    return {"response": "Hello world!"}
+app.include_router(router_search)
 
 origins = [
     "http://localhost:5173",
