@@ -1,80 +1,99 @@
-// import { useState } from "react";
-// import styles from './Card.module.scss';
+import { useState } from "react";
+import styles from "./Card.module.scss";
 
-
-// function Card({name}) {
-//     const [show, setShow] = useState('Департамент');
-// return(
-//     <>
-//     <div className={styles.card}>
-//         <h1>{show}</h1>
-//     </div>
-
-//     <button onClick={()=> setShow('Хуй')}>show</button>
-//     </>
-//     )
-// }
-
-// export default Card;
-
-import { useState } from 'react';
-
-// Компонент для отображения сотрудника
-const EmployeeCard = ({ employee }) => {
-  return (
-    <div className="employee-card">
-      <p>{employee.name} {employee.surname}</p>
-      <p>{employee.flag}</p>
-      <p>{employee.position}</p>
-    </div>
-  );
+// Стили для флага сотрудника
+const openStyle = {
+  backgroundColor: "#008000",
+  color: "#90ee90",
 };
 
+const closeStyle = {
+  backgroundColor: "#d40000",
+  color: "#ff9e9e",
+};
+
+// Компонент для отображения сотрудников
+const EmployeeCard = ({ employee }) => (
+  <div className={styles.employeeCard}>
+    <p>
+      {employee.name} {employee.surname}
+    </p>
+    <p>{employee.position}</p>
+    <p style={employee.flag === "Свободен" ? openStyle : closeStyle}>
+      {employee.flag}
+    </p>
+  </div>
+);
+
 // Компонент для отображения департамента
-const DepartmentCard = ({ department }) => {
+const DepartmentCard = ({ department, depth = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleClick = () => setIsOpen(!isOpen);
+
+  // Генерация цвета фона для департамента
+  const backgroundColor = `hsl(0, 0%, ${100 - depth * 7}%)`;
 
   return (
-    <div className="department-card">
-      <h3 onClick={handleClick}>{department.name}</h3>
+    <div
+      className={styles.departmentCard}
+      style={{
+        backgroundColor,
+        padding: "10px",
+        border: "1px solid #ccc",
+        margin: "5px 0",
+        borderRadius: "5px",
+      }}
+    >
+      {/* Название департамента */}
+      <h3 onClick={handleClick}>{department.name || "Без названия"}</h3>
+
       {isOpen && (
-        <div className="sub-departments">
-          {department.subDepartments.length > 0 ? (
-            department.subDepartments.map((subDept) => (
-              <DepartmentCard key={subDept.id} department={subDept} />
-            ))
-          ) : (
-            <div className="employees">
+        <div className="details">
+          {/* Сотрудники */}
+          {department.workers && department.workers.length > 0 && (
+            <div className="workers">
               {department.workers.map((worker) => (
                 <EmployeeCard key={worker.id} employee={worker} />
               ))}
             </div>
           )}
+
+          {/* Поддепартаменты */}
+          {department.subDepartments &&
+            Object.keys(department.subDepartments).length > 0 && (
+              <div className="sub-departments">
+                {Object.entries(department.subDepartments).map(
+                  ([key, subDept]) => (
+                    <DepartmentCard
+                      key={key}
+                      department={subDept}
+                      depth={depth + 1} // Передаем уровень вложенности
+                    />
+                  )
+                )}
+              </div>
+            )}
         </div>
       )}
     </div>
   );
 };
 
-// Родительский компонент для отображения всех департаментов
-const DepartmentTree = ({ departments }) => {
-    // Проверяем, что departments это массив
-    if (!Array.isArray(departments)) {
-      return <div>Ошибка: Данные о департаментах не загружены.</div>;
-    }
-  
-    return (
-      <div className="department-tree">
-        {departments.map((department) => (
-          <DepartmentCard key={department.id} department={department} />
-        ))}
-      </div>
-    );
-  };
-  
+// Главный компонент
+const DepartmentTree = ({ data }) => {
+  if (!data || !data.subDepartments) {
+    return <div>Нет данных для отображения.</div>;
+  }
+
+  return (
+    <div className={styles.departmentTree}>
+      {/* Рендерим все корневые департаменты */}
+      {Object.entries(data.subDepartments).map(([key, rootDept]) => (
+        <DepartmentCard key={key} department={rootDept} depth={0} />
+      ))}
+    </div>
+  );
+};
 
 export default DepartmentTree;
