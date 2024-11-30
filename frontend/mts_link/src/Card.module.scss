@@ -51,4 +51,38 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    transition: height 1s linear;
+    -webkit-transition: height 1s linear;
+    -moz-transition: height 1s linear;
+    -ms-transition: height 1s linear;
+    -o-transition: height 1s linear;
 }
+
+.card:hover,.departmentCard:hover,.employeeCard:hover{
+    cursor: pointer;
+}
+.departmentCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .details {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .details.open {
+    max-height: 100%;
+    opacity: 1;
+  }
+  
+  .details.closed {
+    max-height: 0;
+    opacity: 0;
+  }
+  

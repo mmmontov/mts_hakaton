@@ -32,50 +32,45 @@ const DepartmentCard = ({ department, depth = 0 }) => {
   const handleClick = () => setIsOpen(!isOpen);
 
   // Генерация цвета фона для департамента
-  const backgroundColor = `hsl(0, 0%, ${100 - depth * 7}%)`;
+  const backgroundColor = `hsl(0, 0%, ${100 - depth * 5}%)`;
 
   return (
     <div
       className={styles.departmentCard}
       style={{
         backgroundColor,
-        padding: "10px",
-        border: "1px solid #ccc",
-        margin: "5px 0",
-        borderRadius: "5px",
       }}
     >
       {/* Название департамента */}
       <h3 onClick={handleClick}>{department.name || "Без названия"}</h3>
 
-      {isOpen && (
-        <div className="details">
-          {/* Сотрудники */}
-          {department.workers && department.workers.length > 0 && (
-            <div className="workers">
-              {department.workers.map((worker) => (
-                <EmployeeCard key={worker.id} employee={worker} />
+      {/* Контент с анимацией */}
+      <div
+        className={`${styles.details} ${isOpen ? styles.open : styles.closed}`}
+      >
+        {/* Сотрудники */}
+        {department.workers && department.workers.length > 0 && (
+          <div className="workers">
+            {department.workers.map((worker) => (
+              <EmployeeCard key={worker.id} employee={worker} />
+            ))}
+          </div>
+        )}
+
+        {/* Поддепартаменты */}
+        {department.subDepartments &&
+          Object.keys(department.subDepartments).length > 0 && (
+            <div className="sub-departments">
+              {Object.entries(department.subDepartments).map(([key, subDept]) => (
+                <DepartmentCard
+                  key={key}
+                  department={subDept}
+                  depth={depth + 1} // Передаем уровень вложенности
+                />
               ))}
             </div>
           )}
-
-          {/* Поддепартаменты */}
-          {department.subDepartments &&
-            Object.keys(department.subDepartments).length > 0 && (
-              <div className="sub-departments">
-                {Object.entries(department.subDepartments).map(
-                  ([key, subDept]) => (
-                    <DepartmentCard
-                      key={key}
-                      department={subDept}
-                      depth={depth + 1} // Передаем уровень вложенности
-                    />
-                  )
-                )}
-              </div>
-            )}
-        </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -88,7 +83,6 @@ const DepartmentTree = ({ data }) => {
 
   return (
     <div className={styles.departmentTree}>
-      {/* Рендерим все корневые департаменты */}
       {Object.entries(data.subDepartments).map(([key, rootDept]) => (
         <DepartmentCard key={key} department={rootDept} depth={0} />
       ))}
