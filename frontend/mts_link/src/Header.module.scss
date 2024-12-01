@@ -1,4 +1,18 @@
 $primary-color: #FF0032;
 .header{
     background-color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 15px;
+    height: 140px;
+    align-items: flex-end;
+    color: #fff;
+    margin-bottom: 30px;
+    img{
+        width: 52px;
+        height: auto;
+    }
+}
+.title{
+    font-size: 24px;
 }

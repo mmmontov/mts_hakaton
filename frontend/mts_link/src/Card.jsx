@@ -4,13 +4,16 @@ import styles from "./Card.module.scss";
 // Компонент для отображения сотрудников
 const EmployeeCard = ({ employee }) => (
   <div className={styles.employeeCard}>
-    <p>
-      {employee.name} {employee.surname}
-    </p>
-    <p>{employee.position}</p>
-    <p style={{ color: employee.flag === "Свободен" ? "green" : "red" }}>
+    <img src="../public/Person.svg" alt="Аватарка" className={styles.peson} />
+<div className={styles.text}> 
+<p style={{ backgroundColor: employee.flag === "Свободен" ? "#A2F64F" : "#FF0032" }} className={styles.status}>
       {employee.flag}
     </p>
+     <p className={styles.name}>
+      {employee.name} {employee.surname}
+    </p>
+    <p className={styles.position}>{employee.position}</p>
+</div>
   </div>
 );
 
@@ -20,7 +23,7 @@ const DepartmentCard = ({ department, depth = 0 }) => {
 
   const handleClick = () => setIsOpen(!isOpen);
 
-  const backgroundColor = `hsl(0, 0%, ${100 - depth * 5}%)`;
+  const backgroundColor = `hsl(0, 0%, ${100 - depth * 2}%)`;
 
   return (
     <div
