@@ -3,11 +3,8 @@ import styles from "./Header.module.scss";
 function Head() {
     return (
         <header className={styles.header}>
-            <h1>
-                <a href="/">
+            <p className={styles.title}>Команда,<br/> которая может всё</p>
                     <img src="../public/Logo.svg" alt="logo" />
-                </a>
-            </h1>
         </header>
     );
 

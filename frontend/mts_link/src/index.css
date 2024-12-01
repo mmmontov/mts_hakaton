@@ -2,8 +2,20 @@
   font-family: "MTS"; /* Имя для шрифта */
   src: url("../public/fonts/MTSText-Bold.ttf") format("truetype"); /* путь к шрифту */
   font-style: normal; /* стиль (курсив илиобычный) */
-  font-weight: bold; /* толщина */
+  font-weight: bolder; /* толщина */
   }
+@font-face{
+    font-family: "MTS"; /* Имя для шрифта */
+    src: url("../public/fonts/MTSText-Medium.ttf") format("truetype"); /* путь к шрифту */
+    font-style: normal; /* стиль (курсив илиобычный) */
+    font-weight:bold; /* толщина */
+    }
+@font-face{
+      font-family: "MTS"; /* Имя для шрифта */
+      src: url("../public/fonts/MTSText-Regular.ttf") format("truetype"); /* путь к шрифту */
+      font-style: normal; /* стиль (курсив илиобычный) */
+      font-weight:normal; /* толщина */
+      }
 :root{
   font-family: MTS ,Arial, Helvetica, sans-serif;
 }
@@ -11,9 +23,7 @@
 html, body{
   overflow-x: hidden;
   width: 100vw;
-}
-body{
-  padding: 10px 0;
+  min-height: 100vh;
 }
 *{
   padding: 0;

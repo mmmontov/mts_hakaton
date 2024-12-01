@@ -58,16 +58,15 @@ function App() {
   return (
     <>
       <Header/>
-      <body className={styles.body}>
-        
-
+      <div className={styles.body}>
+        <p className={styles.subtitle}>Главная</p>
         <input
         type="text"
         placeholder="Поиск"
         value={searchQuery}
         onChange={handleSearchChange}
-        className={styles.search}
-      />
+        className={styles.search}/>
+        <div className={styles.main}>
       <h1>Департаменты</h1>
 
       {filteredData ? (
@@ -75,7 +74,8 @@ function App() {
       ) : (
         <div>Нет данных для отображения</div>
       )}
-      </body>
+      </div>
+      </div>
     </>
   );
 }
