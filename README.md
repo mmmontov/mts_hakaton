@@ -6,6 +6,14 @@
 - Соловьев Евгений (@zhekich_solovev) - Frontend-разработчик
 - Величко Софья (@sofleee) - Дизайнер
 
+# Запуск проекта
+## находясь в папке mts_hakaton ввести в терминал комманды
+```
+docker-compose build
+docker-compose up
+```
+
+сайт находится по адресу ```http://localhost:5173/```
 
 ## Структура проекта
 
