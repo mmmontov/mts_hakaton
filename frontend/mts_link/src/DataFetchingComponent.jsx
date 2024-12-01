@@ -9,7 +9,7 @@ const DataFetchingComponent = () => {
     // Функция для получения данных
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000'); // Замените URL на ваш бэкенд
+        const response = await fetch('http://127.0.0.1:8000/search/'); // Замените URL на ваш бэкенд
         if (!response.ok) {
           console.log(response.status);
           throw new Error(`Ошибка: ${response.status}`);
