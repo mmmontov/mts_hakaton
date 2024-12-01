@@ -1,5 +1,11 @@
+@font-face{
+  font-family: "MTS"; /* Имя для шрифта */
+  src: url("../public/fonts/MTSText-Bold.ttf") format("truetype"); /* путь к шрифту */
+  font-style: normal; /* стиль (курсив илиобычный) */
+  font-weight: bold; /* толщина */
+  }
 :root{
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: MTS ,Arial, Helvetica, sans-serif;
 }
 
 html, body{
@@ -7,7 +13,7 @@ html, body{
   width: 100vw;
 }
 body{
-  padding: 10px 5px;
+  padding: 10px 0;
 }
 *{
   padding: 0;

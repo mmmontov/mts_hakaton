@@ -1,7 +1,8 @@
-import './App.css';
 import { useState, useEffect } from 'react';
 import DepartmentTree from './Card.jsx';
 import fetchData from './Fetch.js';
+import Header from './Header.jsx';
+import styles from './App.module.scss';
 
 function App() {
   const [data, setData] = useState(null);
@@ -55,21 +56,27 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Департаменты</h1>
-      <input
+    <>
+      <Header/>
+      <body className={styles.body}>
+        
+
+        <input
         type="text"
-        placeholder="Введите должность..."
+        placeholder="Поиск"
         value={searchQuery}
         onChange={handleSearchChange}
-        style={{ margin: "10px 0", padding: "5px", width: "300px" }}
+        className={styles.search}
       />
+      <h1>Департаменты</h1>
+
       {filteredData ? (
         <DepartmentTree data={filteredData} />
       ) : (
         <div>Нет данных для отображения</div>
       )}
-    </div>
+      </body>
+    </>
   );
 }
 
