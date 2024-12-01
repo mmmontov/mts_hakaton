@@ -12,6 +12,9 @@ const closeStyle = {
   color: "#ff9e9e",
 };
 
+
+
+
 // Компонент для отображения сотрудников
 const EmployeeCard = ({ employee }) => (
   <div className={styles.employeeCard}>
@@ -28,7 +31,7 @@ const EmployeeCard = ({ employee }) => (
 // Компонент для отображения департамента
 const DepartmentCard = ({ department, depth = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const handleClick = () => setIsOpen(!isOpen);
 
   // Генерация цвета фона для департамента

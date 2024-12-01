@@ -1,8 +1,5 @@
 const sampleData = JSON.parse(`{
     "subDepartments": {
-      "name": "",
-      "subDepartments": {},
-      "workers": [],
       "Центральный офис": {
         "name": "Центральный офис",
         "subDepartments": {
