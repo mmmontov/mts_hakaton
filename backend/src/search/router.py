@@ -68,7 +68,13 @@ async def generate_nested_structure(session: AsyncSession):
 @router.get("/")
 async def get_nested_workers(session: AsyncSession = Depends(get_async_session)):
     nested_data = await generate_nested_structure(session)
+    to_delete = ['name', 'subDepartments', 'workers']
+    for delete in to_delete:
+        del nested_data['subDepartments'][delete]
     return nested_data
 
 
-#роут для получения
+# Роут для поиска пользователя
+@router.get('/worker')
+async def get_worker():
+    ...
