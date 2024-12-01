@@ -74,7 +74,20 @@ async def get_nested_workers(session: AsyncSession = Depends(get_async_session))
     return nested_data
 
 
-# Роут для поиска пользователя
-@router.get('/worker')
-async def get_worker():
-    ...
+def convert_to_clear_list(answer): 
+    return [i[0] for i in answer.all() if i[0]]
+
+@router.get('/departments_filter')
+async def get_all_departments_1(session: AsyncSession = Depends(get_async_session)):
+    response = {}
+    
+    query = select(workers.c.department_1).distinct()
+    answer = await session.execute(query)
+    response['departments'] = convert_to_clear_list(answer)
+
+    query = select(workers.c.functional_block).distinct()
+    answer = await session.execute(query)
+    response['functional_blocks'] = convert_to_clear_list(answer)
+
+    return response
+
