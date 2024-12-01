@@ -64,11 +64,11 @@ async def generate_nested_structure(session: AsyncSession):
 
     return convert_to_dict(data)
 
-# Роут для получения данных
+# Роут для получения всех данных
 @router.get("/")
 async def get_nested_workers(session: AsyncSession = Depends(get_async_session)):
     nested_data = await generate_nested_structure(session)
     return nested_data
 
 
-        
+#роут для получения

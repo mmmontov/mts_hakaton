@@ -1,2 +1,7 @@
 *.db
 .DS_Store
+
+test.json
+.venv/
+.vscode/
+
