@@ -1,20 +1,6 @@
 import { useState } from "react";
 import styles from "./Card.module.scss";
 
-// Стили для флага сотрудника
-const openStyle = {
-  backgroundColor: "#008000",
-  color: "#90ee90",
-};
-
-const closeStyle = {
-  backgroundColor: "#d40000",
-  color: "#ff9e9e",
-};
-
-
-
-
 // Компонент для отображения сотрудников
 const EmployeeCard = ({ employee }) => (
   <div className={styles.employeeCard}>
@@ -22,7 +8,7 @@ const EmployeeCard = ({ employee }) => (
       {employee.name} {employee.surname}
     </p>
     <p>{employee.position}</p>
-    <p style={employee.flag === "Свободен" ? openStyle : closeStyle}>
+    <p style={{ color: employee.flag === "Свободен" ? "green" : "red" }}>
       {employee.flag}
     </p>
   </div>
@@ -30,55 +16,48 @@ const EmployeeCard = ({ employee }) => (
 
 // Компонент для отображения департамента
 const DepartmentCard = ({ department, depth = 0 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
+  const [isOpen, setIsOpen] = useState(department.isOpen || false);
+
   const handleClick = () => setIsOpen(!isOpen);
 
-  // Генерация цвета фона для департамента
   const backgroundColor = `hsl(0, 0%, ${100 - depth * 5}%)`;
 
   return (
     <div
       className={styles.departmentCard}
-      style={{
-        backgroundColor,
-      }}
+      style={{ backgroundColor }}
     >
-      {/* Название департамента */}
       <h3 onClick={handleClick}>{department.name || "Без названия"}</h3>
 
-      {/* Контент с анимацией */}
-      <div
-        className={`${styles.details} ${isOpen ? styles.open : styles.closed}`}
-      >
-        {/* Сотрудники */}
-        {department.workers && department.workers.length > 0 && (
-          <div className="workers">
-            {department.workers.map((worker) => (
-              <EmployeeCard key={worker.id} employee={worker} />
-            ))}
-          </div>
-        )}
-
-        {/* Поддепартаменты */}
-        {department.subDepartments &&
-          Object.keys(department.subDepartments).length > 0 && (
-            <div className="sub-departments">
-              {Object.entries(department.subDepartments).map(([key, subDept]) => (
-                <DepartmentCard
-                  key={key}
-                  department={subDept}
-                  depth={depth + 1} // Передаем уровень вложенности
-                />
+      {isOpen && (
+        <div className="details">
+          {department.workers && department.workers.length > 0 && (
+            <div className="workers">
+              {department.workers.map((worker) => (
+                <EmployeeCard key={worker.id} employee={worker} />
               ))}
             </div>
           )}
-      </div>
+
+          {department.subDepartments &&
+            Object.entries(department.subDepartments).length > 0 && (
+              <div className="sub-departments">
+                {Object.entries(department.subDepartments).map(([key, subDept]) => (
+                  <DepartmentCard
+                    key={key}
+                    department={subDept}
+                    depth={depth + 1}
+                  />
+                ))}
+              </div>
+            )}
+        </div>
+      )}
     </div>
   );
 };
 
-// Главный компонент
+// Главный компонент для отображения дерева департаментов
 const DepartmentTree = ({ data }) => {
   if (!data || !data.subDepartments) {
     return <div>Нет данных для отображения.</div>;
