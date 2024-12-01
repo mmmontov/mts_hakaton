@@ -6,6 +6,9 @@
 - Соловьев Евгений (@zhekich_solovev) - Frontend-разработчик
 - Величко Софья (@sofleee) - Дизайнер
 
+# Видео демонстрирующее работоспособность проекта
+```https://drive.google.com/file/d/1IO3x5vBKrCKq_OAlM09aug4HPHzkFhIq/view?usp=drive_link```
+
 # Запуск проекта
 ## находясь в папке mts_hakaton ввести в терминал комманды
 ```
