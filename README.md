@@ -1,8 +1,8 @@
 # Команда picmic 
 
 # участники:
-- Соловьев Евгений (@zhekich_solovev) - Разработчик
-- Дубровина Анастасия (@nesssds) - Дизайнер
+- Соловьев Евгений (@zhekich_solovev) - Frontend
+- Мамонтов Михаил (@mmmontov) - Backend
 
 # Видео демонстрирующее работоспособность проекта
 ```https://drive.google.com/file/d/1IO3x5vBKrCKq_OAlM09aug4HPHzkFhIq/view?usp=drive_link```
